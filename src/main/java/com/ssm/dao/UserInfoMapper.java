@@ -1,6 +1,7 @@
 package com.ssm.dao;
 
 import com.ssm.pojo.UserInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -12,6 +13,7 @@ public interface UserInfoMapper {
     int insertSelective(UserInfo record);
 
     UserInfo selectByPrimaryKey(Long id);
+
 //  更新头像信息
     int updateByPrimaryKeySelective(UserInfo record);
 

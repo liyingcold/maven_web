@@ -1,6 +1,7 @@
 package com.ssm.dao;
 
 import com.ssm.pojo.FemaleHealth;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,4 +17,5 @@ public interface FemaleHealthMapper {
     int updateByPrimaryKeySelective(FemaleHealth record);
 
     int updateByPrimaryKey(FemaleHealth record);
+
 }

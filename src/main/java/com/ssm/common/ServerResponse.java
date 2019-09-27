@@ -72,7 +72,7 @@ public class ServerResponse<T> implements Serializable{
         return new ServerResponse<T>(ResponseCode.SUCCESS.getCode(),msg,data);
     }
 
-//    创建一个失败的响应
+//    创建一个自定义的信息的失败的响应
     public static <T> ServerResponse<T> createByErrorMessage(String errorMessage){
         return new ServerResponse<T>(ResponseCode.ERROR.getCode(),errorMessage);
     }
@@ -80,5 +80,10 @@ public class ServerResponse<T> implements Serializable{
 //    创建一个自定义状态码与信息的失败响应
     public static <T> ServerResponse<T> createByErrorCodeMessage(int errorCode,String errorMessage){
         return new ServerResponse<T>(errorCode,errorMessage);
+    }
+
+//    创建一个失败的响应
+    public static <T> ServerResponse<T> createByError(){
+        return new ServerResponse<T>(ResponseCode.ERROR.getCode());
     }
 }

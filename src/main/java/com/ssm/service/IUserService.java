@@ -1,7 +1,10 @@
 package com.ssm.service;
 
 import com.ssm.common.ServerResponse;
+import com.ssm.pojo.Health;
+import com.ssm.pojo.Role;
 import com.ssm.pojo.User;
+import com.ssm.pojo.UserInfo;
 import com.ssm.vo.UserInfoVo;
 
 public interface IUserService {
@@ -15,13 +18,20 @@ public interface IUserService {
 
     ServerResponse<String> resetPassword(String passwordOld, String passwordNew, User user);
 
-//    更新UserInfoVo对象中的字段
+//    更新User对象中的字段
     ServerResponse<User> updateInformation(User user);
 
-    ServerResponse<User> getInformation(Integer userId);
+//    更新Role角色信息(管理员可以更新角色信息)
+    ServerResponse<Role> updateRole(Role role);
 
-//    admin
-    ServerResponse<String> checkAdminRole(User user);
+//    更新头像
+    ServerResponse<UserInfo> updateAvatar(UserInfo userInfo);
+
+//    获得所有信息
+    ServerResponse<User> getInformation(Long userId);
+
+//    检验admin
+    ServerResponse<String> checkAdminRole(Role role);
 
 
 }

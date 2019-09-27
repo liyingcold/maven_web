@@ -20,6 +20,7 @@
     from t_role
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_role
     where id = #{id,jdbcType=INTEGER}
@@ -73,4 +74,5 @@
       note = #{note,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

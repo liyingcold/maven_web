@@ -13,7 +13,7 @@
       <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
     <!--与用户信息表，一对一级联-->
-    <association property="userInfo" column="id" fetchType="lazy" select="com.ssm.dao.UserInfoMapper.selectByPrimaryKey"/>
+    <association property="userInfo" column="user_id" fetchType="lazy" select="com.ssm.dao.UserInfoMapper.selectByPrimaryKey"/>
     <!--与角色role表，一对多级联-->
     <collection property="roleList" column="id" fetchType="lazy" select="com.ssm.dao.RoleMapper.selectByPrimaryKey"/>
     <!--鉴别器-->
@@ -22,17 +22,17 @@
       <case value="0" resultMap="femaleHealthMapper"/>
     </discriminator>
   </resultMap>
-
   <resultMap id="femaleHealthMapper" type="com.ssm.pojo.FemaleHealth" extends="BaseResultMap">
-    <association property="femaleHealth" column="id" select="com.ssm.dao.FemaleHealthMapper.selectByPrimaryKey"/>
+    <association property="femaleHealth" column="user_id" select="com.ssm.dao.FemaleHealthMapper.selectByPrimaryKey"/>
   </resultMap>
   <resultMap id="maleHealthMapper" type="com.ssm.pojo.MaleHealth" extends="BaseResultMap">
-    <association property="maleHealth" column="id" select="com.ssm.dao.MaleHealthMapper.selectByPrimaryKey"/>
+    <association property="maleHealth" column="user_id" select="com.ssm.dao.MaleHealthMapper.selectByPrimaryKey"/>
   </resultMap>
 
   <sql id="Base_Column_List" >
     id, user_name, password, sex, mobile, tel, email, note
   </sql>
+  <!--查询用户基础信息-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -183,4 +183,5 @@
     where email=#{email}
     and id!=#{userId}
   </select>
+
 </mapper>

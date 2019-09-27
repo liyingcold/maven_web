@@ -3,19 +3,13 @@ package com.ssm.service.impl;
 import com.ssm.common.Const;
 import com.ssm.common.ServerResponse;
 import com.ssm.common.TokenCache;
-import com.ssm.dao.RoleMapper;
-import com.ssm.dao.UserInfoMapper;
-import com.ssm.dao.UserMapper;
-import com.ssm.pojo.User;
+import com.ssm.dao.*;
+import com.ssm.pojo.*;
 import com.ssm.service.IUserService;
 import com.ssm.util.MD5Util;
-import com.ssm.vo.UserLoginVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service(value = "iUserService")
 public class UserServiceImpl implements IUserService {
@@ -191,7 +185,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * 更新用户个人信息
+     * 更新用户个人信息（基本信息,用户操作）
      * @param user    新的用户对象
      * @return        更新信息
      */
@@ -203,30 +197,90 @@ public class UserServiceImpl implements IUserService {
             return ServerResponse.createByErrorMessage("email已存在，请更换email再尝试更新");
         }
 
+        User updateUser=new User();
 
-        return null;
+        updateUser.setId(user.getId());
+        updateUser.setUserName(user.getUserName());
+        updateUser.setSex(user.getSex());
+        updateUser.setMobile(user.getMobile());
+        updateUser.setTel(user.getTel());
+        updateUser.setEmail(user.getEmail());
+
+        int updateCount=userMapper.updateByPrimaryKeySelective(updateUser);
+        if (updateCount>0){
+            return ServerResponse.createBySuccess("更新个人用户信息成功",updateUser);
+        }
+        
+        return ServerResponse.createByErrorMessage("更新个人信息失败");
     }
 
+    /**
+     * 更新角色信息（管理员操作）
+     * @param role  需要更新的信息
+     * @return
+     */
     @Override
-    public ServerResponse<User> getInformation(Integer userId) {
-        return null;
+    public ServerResponse<Role> updateRole(Role role) {
+        ServerResponse isAdmin=this.checkAdminRole(role);
+        if (isAdmin.isSuccess()){
+            Role roleNew=new Role();
+            roleNew.setId(role.getId());
+            roleNew.setRoleName(role.getRoleName());
+            int updateCount=roleMapper.updateByPrimaryKeySelective(roleNew);
+            if (updateCount>0){
+                return ServerResponse.createBySuccess("更新用户角色成功",roleNew);
+            }
+            return ServerResponse.createByErrorMessage("更新用户角色信息失败！");
+        }
+
+        return ServerResponse.createByErrorMessage("没有操作权限！");
     }
 
+    /**
+     * 更新头像（用户操作）
+     * @param userInfo  头像信息
+     * @return
+     */
     @Override
-    public ServerResponse<String> checkAdminRole(User user) {
-        return null;
+    public ServerResponse<UserInfo> updateAvatar(UserInfo userInfo) {
+        UserInfo avatar=new UserInfo();
+        avatar.setUserId(userInfo.getUserId());
+        avatar.setHeadImage(userInfo.getHeadImage());
+        int updateCount=userInfoMapper.updateByPrimaryKeySelective(avatar);
+        if (updateCount>0){
+            return ServerResponse.createBySuccess("更新成功！",avatar);
+        }
+        return ServerResponse.createByErrorMessage("更新头像失败！");
     }
 
+    /**
+     * 根据Id查看该用户的所有信息
+     * 将全部信息查出，前端根据需要获取对应的数据
+     * 没必要分开获取信息
+     * @param userId    用户Id
+     * @return          所有信息
+     */
+    @Override
+    public ServerResponse<User> getInformation(Long userId) {
+        User user=userMapper.selectByPrimaryKey(userId);
 
+        if (user==null){
+            return ServerResponse.createByErrorMessage("找不到当前用户！");
+        }
+        user.setPassword(StringUtils.EMPTY);
 
-//    User->UserLoginVo
-    private UserLoginVo assembleUserVo(User user){
-       UserLoginVo userLoginVo=new UserLoginVo();
+        return ServerResponse.createBySuccess(user);
+    }
 
-       userLoginVo.setUserName(user.getUserName());
-       userLoginVo.setEmail(user.getEmail());
-
-        return userLoginVo;
+    //    校验角色
+    @Override
+    public ServerResponse<String> checkAdminRole(Role role) {
+        if (role != null && role.getRoleName().equals(Const.Role.ROLE_ADMIN)) {
+//                    0：成功
+            return ServerResponse.createBySuccess();
+        }
+//        1:失败
+        return ServerResponse.createByError();
     }
 
 }

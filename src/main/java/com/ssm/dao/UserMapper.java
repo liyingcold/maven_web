@@ -12,7 +12,9 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
+//    查看所有信息
     User selectByPrimaryKey(Long id);
+
 
 //    只包含User对象里面的字段
     int updateByPrimaryKeySelective(User record);
@@ -35,6 +37,5 @@ public interface UserMapper {
 
 //    检查邮箱（userId）
     int checkEmailByUserId(@Param("userId")Long id,@Param("email")String email);
-
 
 }
