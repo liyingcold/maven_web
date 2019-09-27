@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!--MyBatis自动生成插件-->
+<generatorConfiguration>
+
+<!--导入属性配置-->
+    <properties resource="datasource.properties"/>
+
+<!--指定特定数据库的jdbc驱动jar包-->
+    <classPathEntry location="${db.driverLocation}"/>
+
+<!--MyBatis3简化配置-->
+    <context id="default" targetRuntime="MyBatis3">
+
+<!--optional，旨在创建class时，对注释进行控制-->
+        <commentGenerator>
+            <!--生成的注释中是否包含时间戳，true表示不包含-->
+            <property name="suppressDate" value="true"/>
+            <!--是否产生注释，true表示不生成注释-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+<!--jdbc数据库连接-->
+        <jdbcConnection
+                driverClass="${db.driverClassName}"
+                connectionURL="${db.url}"
+                userId="${db.username}"
+                password="${db.password}">
+        </jdbcConnection>
+
+<!--类型解析器（非必需），在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+<!--Model模型生成器，用来生成含有主键key类，记录类以及查询Example类
+            targetPackage       指定生成的model生成所在的包名
+            targetProject       指定在该项目下所在的路径
+-->
+        <!--pojo位置-->
+        <javaModelGenerator targetPackage="com.ssm.pojo" targetProject="./src/main/java">
+            <!--自动为每一个生成的类创建一个构造方法，构造方法包含所有的field-->
+            <property name="enableSubPackages" value="false"/>
+            <!--是否对model添加构造函数-->
+            <property name="constructorBased" value="true"/>
+            <!--设置是否在getter方法中，对String类型字段调用trim()方法-->
+            <property name="trimString" value="true"/>
+            <!--建立的Model对象是否不可改变，及生成的Model对象不会有setter方法，只有构造方法-->
+            <property name="immutable" value="false"/>
+        </javaModelGenerator>
+
+        <!--mapper映射文件生成所在的目录 唯一一个数据库表生成对应的SqlMapper-->
+        <sqlMapGenerator targetPackage="mappers" targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!--客户端代码，生成易于使用的针对model对象和XML配置文件 的代码
+            type="ANNOTATEDMAPPER",生成java Model 和基于注解的mapper对象
+            type="MIXEDMAPPER",生成基于注解的java Model和相应的Mapper对象
+            typr="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+        -->
+
+        <!--targetPackage：mapper接口dao生成的位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.ssm.dao"  targetProject="./src/main/java">
+                <property name="enablePackages" value="false"/>
+        </javaClientGenerator>
+
+
+        <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 是否生成 example类   -->
+        <!--配置表信息-->
+        <!--用户角色表-->
+        <table tableName="t_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </table>
+        <table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </table>
+        <table tableName="t_user_role" domainObjectName="UserRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+            <columnOverride column="role_id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+            <columnOverride column="user_id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </table>
+        <table tableName="t_user_info" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+            <columnOverride column="user_id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </table>
+        <table tableName="t_male_health" domainObjectName="MaleHealth" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+            <columnOverride column="user_id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </table>
+        <table tableName="t_female_health" domainObjectName="FemaleHealth" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <columnOverride column="id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+            <columnOverride column="user_id" javaType="java.lang.Long" jdbcType="INTEGER"/>
+        </table>
+    </context>
+</generatorConfiguration>

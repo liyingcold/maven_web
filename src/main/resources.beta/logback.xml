@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--scanPeriod检测配置文件是否有修改时间间隔-->
+<configuration scan="true" scanPeriod="60 seconds"  debug="false">
+
+<!--appender负责写日志的组件（主要用来设置日志的输出位置，日志文件的生成策略）-->
+    <!--ConsoleAppender控制台输出日志-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoding>UTF-8</encoding>
+        <!--对记录事件进行格式化-->
+        <encoder>
+            <!--设置日志输出格式-->
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <!--日志输出级别DEBUG-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+<!--设置一个向上传递的appender,输出所有级别的日志-->
+    <!--RollingFileAppender：滚动记录地把日志输出到文件（先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件）-->
+    <appender name="ssm" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--File：被写入的文件名，文件输出位置,D:/JavaEE/log/+项目名.log-->
+        <File>log/ssm.log</File>
+        <!--rollingPolicy：发生滚动时，决定RollingFileAppender的行为，涉及文件移动和重命名-->
+        <!--TimeBasedRollingPolicy：根据时间来制定滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--TimeBasedRollingPolicy根据fileNamePattern标签来表示什么周期触发一次生成新的日志文件-->
+            <fileNamePattern>log/ssm.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <!--日志被追加到文件结尾-->
+            <append>true</append>
+            <!--保存日志的最大单位时间，18天-->
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <!--对记录事件进行格式化（1、把日志信息转换成字节数组，2、把字节数组写入到输出流）-->
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>log/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>log/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <append>true</append>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{HH:mm:ss.SSS}][%p][%c{40}][%t] %m%n</pattern>
+        </encoder>
+        <!--过滤器-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--设置过滤级别-->
+            <level>ERROR</level>
+            <!--用于配置符合过滤条件的操作-->
+            <onMatch>ACCEPT</onMatch>
+            <!--用于配置不符合条件的操作-->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!--com.ssm包下的类的日志输出-->
+    <logger name="com.ssm" additivity="false" level="INFO">
+        <appender-ref ref="ssm"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!--MyBatis log 日志-->
+    <logger name="com.ssm.dao" level="DEBUG"/>
+
+    <!--root级别 DEBUG-->
+    <root level="DEBUG">
+        <!--控制台输出-->
+        <appender-ref ref="console"/>
+        <!--打印级别及以上级别-->
+        <appender-ref ref="error"/>
+    </root>
+
+</configuration>

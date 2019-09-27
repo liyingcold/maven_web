@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<!--基本配置-->
+
+    <!--pom模型版本，maven2和3只能为4.0.0-->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com</groupId>
+    <artifactId>ssm</artifactId>
+    <!--项目版本-->
+    <version>1.0-SNAPSHOT</version>
+    <!--项目打包方式-->
+    <packaging>war</packaging>
+
+
+    <!--项目信息-->
+    <name>maven_web Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+  <!--maven工程导入jar包的坐标，就必须要解决jar包冲突
+      方法一、第一声明优先原则：先声明jar包下的依赖包，可以优先进入项目中
+        //maven导入jar包的一些概念
+         直接依赖：项目中直接导入的jar包，就是项目的直接依赖包
+         传递依赖：项目中没有直接导入的jar包，可以通过项目依赖jar包传递到项目中
+      方法二、路径近者优先原则，直接依赖路径比传递依赖近，那么最终项目进入的jar包会是路径近的直接依赖jar包
+      方法三、直接排除法，排除某个jar包下的依赖包，在配置exclusions标签的时候，内部可以不写版本号-->
+
+<!--依赖配置-->
+
+    <!--统一管理jar包版本，定义pom常量通过${xxx.version}来引用-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
+        <org.springframework.version>5.0.2.RELEASE</org.springframework.version>
+        <org.mybatis.version>3.4.6</org.mybatis.version>
+        <org.mybatis.spring.version>1.3.2</org.mybatis.spring.version>
+    </properties>
+
+    <dependencies>
+      <!--tomcat-->
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-servlet-api</artifactId>
+          <version>8.0.53</version>
+      </dependency>
+
+      <!--spring MVC-->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-oxm</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>${org.springframework.version}</version>
+      </dependency>
+
+<!--切面,处理事务和AOP的包-->
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjweaver</artifactId>
+          <version>1.7.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.aspectj</groupId>
+          <artifactId>aspectjrt</artifactId>
+          <version>1.6.11</version>
+      </dependency>
+
+<!--mybatis-->
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis-spring</artifactId>
+          <version>${org.mybatis.spring.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.mybatis</groupId>
+          <artifactId>mybatis</artifactId>
+          <version>${org.mybatis.version}</version>
+      </dependency>
+        <!--MyBatis插件-->
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+
+<!--&lt;!&ndash;mysql数据库驱动&ndash;&gt;-->
+      <!--<dependency>-->
+
+      <!--</dependency>-->
+
+<!--jdbc-->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+<!--json解析工具-->
+      <!--核心jar包-->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>2.8.5</version>
+      </dependency>
+      <!--数据绑定包，依赖于jackson-annotations-->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.8.5</version>
+      </dependency>
+      <!--注解包，依赖于jackson-core-->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.8.5</version>
+      </dependency>
+      <!--序列化，反序列化-->
+      <dependency>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-mapper-asl</artifactId>
+          <version>1.9.12</version>
+      </dependency>
+      <dependency>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-core-asl</artifactId>
+          <version>1.9.12</version>
+      </dependency>
+
+
+    <!--工具类-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
+
+        <dependency>
+              <groupId>org.apache.commons</groupId>
+              <artifactId>commons-lang3</artifactId>
+              <version>3.5</version>
+        </dependency>
+        <!--集合工具类-->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
+<!--日志组件logback-->
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-core</artifactId>
+          <version>1.1.2</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>1.1.2</version>
+          <scope>compile</scope>
+      </dependency>
+      <dependency>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+          <version>1.1.1</version>
+      </dependency>
+
+<!--测试工具-->
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+      </dependency>
+
+<!--时间工具-->
+      <dependency>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+          <version>2.3</version>
+      </dependency>
+
+<!--id加密解密-->
+        <dependency>
+            <groupId>org.hashids</groupId>
+            <artifactId>hashids</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+<!--FTP文件下载-->
+      <dependency>
+          <groupId>commons-net</groupId>
+          <artifactId>commons-net</artifactId>
+          <version>3.1</version>
+      </dependency>
+    <!--文件上传-->
+      <dependency>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+          <version>1.2.2</version>
+      </dependency>
+    <!--主要进行io操作，是commons-fileupload的依赖包-->
+      <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.0.1</version>
+      </dependency>
+
+<!--分页插件工具-->
+      <dependency>
+          <groupId>com.github.pagehelper</groupId>
+          <artifactId>pagehelper</artifactId>
+          <version>4.0.1</version>
+      </dependency>
+      <dependency>
+          <groupId>com.github.miemiedev</groupId>
+          <artifactId>mybatis-paginator</artifactId>
+          <version>1.2.17</version>
+      </dependency>
+      <dependency>
+          <groupId>com.github.jsqlparser</groupId>
+          <artifactId>jsqlparser</artifactId>
+          <version>0.9.4</version>
+      </dependency>
+
+<!--@Slf4j注解使用-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+        </dependency>
+    </dependencies>
+
+<!--构建配置-->
+
+
+    <build>
+        <!--产生的构建的文件名，默认值为${artifactId}-${version}-->
+        <finalName>ssm</finalName>
+        <!--使用的插件列表-->
+        <plugins>
+            <!--MyBatis自动生成插件-->
+            <plugin>
+                <!--找不到driver时添加一个依赖即可-->
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <!--是否覆盖同名文件-->
+                    <verbose>true</verbose>
+                    <!--是否将生成的过程输出至控制台-->
+                    <overwrite>true</overwrite>
+                </configuration>
+                <!--添加依赖-->
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.6</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>mybatis-generator</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--maven的核心插件之-compiler插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置，在pom.xml里面加上 增加编译插件-->
+            <!--找不到的jar包。可以添加到本地，再对其进行加载-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!--资源路径-->
+        <resources>
+            <resource>
+                <!--设定主资源目录-->
+                <directory>src/main/resources.${deploy.type}</directory>
+                <!--maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目录下的资源文件时，不处理如下配置中包含的资源类型（删除如下配置中的资源类型）-->
+                <excludes>
+                    <exclude>*.jsp</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+
+<!--环境设置，避免人工修改的弊端-->
+
+    <!--定义一系列的配置信息，指定其激活条件-->
+    <profiles>
+        <profile>
+            <!--本地开发（默认）-->
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <deploy.type>dev</deploy.type>
+            </properties>
+        </profile>
+        <profile>
+            <!--测试环境-->
+            <id>beta</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <deploy.type>beta</deploy.type>
+            </properties>
+        </profile>
+        <profile>
+            <!--生产环境-->
+            <id>prod</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <deploy.type>prod</deploy.type>
+            </properties>
+        </profile>
+    </profiles>
+</project>
