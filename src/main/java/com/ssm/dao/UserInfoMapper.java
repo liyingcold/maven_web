@@ -1,7 +1,6 @@
 package com.ssm.dao;
 
 import com.ssm.pojo.UserInfo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository

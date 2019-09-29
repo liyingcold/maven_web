@@ -1,0 +1,6 @@
+com\ssm\dao\UserRoleMapper.class
+com\ssm\pojo\User.class
+com\ssm\dao\UserInfoMapper.class
+com\ssm\pojo\UserRole.class
+com\ssm\controller\common\interceptor\PortalAuthorityInterceptor.class
+com\ssm\pojo\UserInfo.class
