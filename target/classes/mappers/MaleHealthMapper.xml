@@ -1,34 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssm.dao.MaleHealthMapper">
-  <resultMap id="BaseResultMap" type="com.ssm.pojo.MaleHealth">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Long" jdbcType="INTEGER" />
-      <arg column="heart" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="liver" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="spleen" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="lung" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="kidney" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="prostate" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="check_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="note" javaType="java.lang.String" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.MaleHealthMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.pojo.MaleHealth" >
+    <constructor >
+      <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Long" />
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Long" />
+      <arg column="heart" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="liver" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="spleen" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="lung" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="kidney" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="prostate" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="check_date" jdbcType="DATE" javaType="java.util.Date" />
+      <arg column="note" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, user_id, heart, liver, spleen, lung, kidney, prostate, check_date, note
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from t_male_health
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_male_health
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.ssm.pojo.MaleHealth">
+  <insert id="insert" parameterType="com.ssm.pojo.MaleHealth" >
     insert into t_male_health (id, user_id, heart, 
       liver, spleen, lung, 
       kidney, prostate, check_date, 
@@ -38,407 +38,107 @@
       #{kidney,jdbcType=VARCHAR}, #{prostate,jdbcType=VARCHAR}, #{checkDate,jdbcType=DATE}, 
       #{note,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ssm.pojo.MaleHealth">
+  <insert id="insertSelective" parameterType="com.ssm.pojo.MaleHealth" >
     insert into t_male_health
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         user_id,
       </if>
-      <if test="heart != null">
+      <if test="heart != null" >
         heart,
       </if>
-      <if test="liver != null">
+      <if test="liver != null" >
         liver,
       </if>
-      <if test="spleen != null">
+      <if test="spleen != null" >
         spleen,
       </if>
-      <if test="lung != null">
+      <if test="lung != null" >
         lung,
       </if>
-      <if test="kidney != null">
+      <if test="kidney != null" >
         kidney,
       </if>
-      <if test="prostate != null">
+      <if test="prostate != null" >
         prostate,
       </if>
-      <if test="checkDate != null">
+      <if test="checkDate != null" >
         check_date,
       </if>
-      <if test="note != null">
+      <if test="note != null" >
         note,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null">
+      <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="heart != null">
+      <if test="heart != null" >
         #{heart,jdbcType=VARCHAR},
       </if>
-      <if test="liver != null">
+      <if test="liver != null" >
         #{liver,jdbcType=VARCHAR},
       </if>
-      <if test="spleen != null">
+      <if test="spleen != null" >
         #{spleen,jdbcType=VARCHAR},
       </if>
-      <if test="lung != null">
+      <if test="lung != null" >
         #{lung,jdbcType=VARCHAR},
       </if>
-      <if test="kidney != null">
+      <if test="kidney != null" >
         #{kidney,jdbcType=VARCHAR},
       </if>
-      <if test="prostate != null">
+      <if test="prostate != null" >
         #{prostate,jdbcType=VARCHAR},
       </if>
-      <if test="checkDate != null">
+      <if test="checkDate != null" >
         #{checkDate,jdbcType=DATE},
       </if>
-      <if test="note != null">
+      <if test="note != null" >
         #{note,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.MaleHealth">
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.MaleHealth" >
     update t_male_health
-    <set>
-      <if test="userId != null">
+    <set >
+      <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="heart != null">
+      <if test="heart != null" >
         heart = #{heart,jdbcType=VARCHAR},
       </if>
-      <if test="liver != null">
+      <if test="liver != null" >
         liver = #{liver,jdbcType=VARCHAR},
       </if>
-      <if test="spleen != null">
+      <if test="spleen != null" >
         spleen = #{spleen,jdbcType=VARCHAR},
       </if>
-      <if test="lung != null">
+      <if test="lung != null" >
         lung = #{lung,jdbcType=VARCHAR},
       </if>
-      <if test="kidney != null">
+      <if test="kidney != null" >
         kidney = #{kidney,jdbcType=VARCHAR},
       </if>
-      <if test="prostate != null">
+      <if test="prostate != null" >
         prostate = #{prostate,jdbcType=VARCHAR},
       </if>
-      <if test="checkDate != null">
+      <if test="checkDate != null" >
         check_date = #{checkDate,jdbcType=DATE},
       </if>
-      <if test="note != null">
+      <if test="note != null" >
         note = #{note,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.MaleHealth">
-    update t_male_health
-    set user_id = #{userId,jdbcType=INTEGER},
-      heart = #{heart,jdbcType=VARCHAR},
-      liver = #{liver,jdbcType=VARCHAR},
-      spleen = #{spleen,jdbcType=VARCHAR},
-      lung = #{lung,jdbcType=VARCHAR},
-      kidney = #{kidney,jdbcType=VARCHAR},
-      prostate = #{prostate,jdbcType=VARCHAR},
-      check_date = #{checkDate,jdbcType=DATE},
-      note = #{note,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.ssm.pojo.MaleHealth">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Long" jdbcType="INTEGER" />
-      <arg column="heart" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="liver" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="spleen" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="lung" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="kidney" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="prostate" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="check_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="note" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, heart, liver, spleen, lung, kidney, prostate, check_date, note
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_male_health
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_male_health
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.ssm.pojo.MaleHealth">
-    insert into t_male_health (id, user_id, heart, 
-      liver, spleen, lung, 
-      kidney, prostate, check_date, 
-      note)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{heart,jdbcType=VARCHAR}, 
-      #{liver,jdbcType=VARCHAR}, #{spleen,jdbcType=VARCHAR}, #{lung,jdbcType=VARCHAR}, 
-      #{kidney,jdbcType=VARCHAR}, #{prostate,jdbcType=VARCHAR}, #{checkDate,jdbcType=DATE}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ssm.pojo.MaleHealth">
-    insert into t_male_health
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="heart != null">
-        heart,
-      </if>
-      <if test="liver != null">
-        liver,
-      </if>
-      <if test="spleen != null">
-        spleen,
-      </if>
-      <if test="lung != null">
-        lung,
-      </if>
-      <if test="kidney != null">
-        kidney,
-      </if>
-      <if test="prostate != null">
-        prostate,
-      </if>
-      <if test="checkDate != null">
-        check_date,
-      </if>
-      <if test="note != null">
-        note,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="heart != null">
-        #{heart,jdbcType=VARCHAR},
-      </if>
-      <if test="liver != null">
-        #{liver,jdbcType=VARCHAR},
-      </if>
-      <if test="spleen != null">
-        #{spleen,jdbcType=VARCHAR},
-      </if>
-      <if test="lung != null">
-        #{lung,jdbcType=VARCHAR},
-      </if>
-      <if test="kidney != null">
-        #{kidney,jdbcType=VARCHAR},
-      </if>
-      <if test="prostate != null">
-        #{prostate,jdbcType=VARCHAR},
-      </if>
-      <if test="checkDate != null">
-        #{checkDate,jdbcType=DATE},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.MaleHealth">
-    update t_male_health
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="heart != null">
-        heart = #{heart,jdbcType=VARCHAR},
-      </if>
-      <if test="liver != null">
-        liver = #{liver,jdbcType=VARCHAR},
-      </if>
-      <if test="spleen != null">
-        spleen = #{spleen,jdbcType=VARCHAR},
-      </if>
-      <if test="lung != null">
-        lung = #{lung,jdbcType=VARCHAR},
-      </if>
-      <if test="kidney != null">
-        kidney = #{kidney,jdbcType=VARCHAR},
-      </if>
-      <if test="prostate != null">
-        prostate = #{prostate,jdbcType=VARCHAR},
-      </if>
-      <if test="checkDate != null">
-        check_date = #{checkDate,jdbcType=DATE},
-      </if>
-      <if test="note != null">
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.MaleHealth">
-    update t_male_health
-    set user_id = #{userId,jdbcType=INTEGER},
-      heart = #{heart,jdbcType=VARCHAR},
-      liver = #{liver,jdbcType=VARCHAR},
-      spleen = #{spleen,jdbcType=VARCHAR},
-      lung = #{lung,jdbcType=VARCHAR},
-      kidney = #{kidney,jdbcType=VARCHAR},
-      prostate = #{prostate,jdbcType=VARCHAR},
-      check_date = #{checkDate,jdbcType=DATE},
-      note = #{note,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.ssm.pojo.MaleHealth">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Long" jdbcType="INTEGER" />
-      <arg column="user_id" javaType="java.lang.Long" jdbcType="INTEGER" />
-      <arg column="heart" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="liver" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="spleen" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="lung" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="kidney" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="prostate" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="check_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="note" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, heart, liver, spleen, lung, kidney, prostate, check_date, note
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from t_male_health
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from t_male_health
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.ssm.pojo.MaleHealth">
-    insert into t_male_health (id, user_id, heart, 
-      liver, spleen, lung, 
-      kidney, prostate, check_date, 
-      note)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{heart,jdbcType=VARCHAR}, 
-      #{liver,jdbcType=VARCHAR}, #{spleen,jdbcType=VARCHAR}, #{lung,jdbcType=VARCHAR}, 
-      #{kidney,jdbcType=VARCHAR}, #{prostate,jdbcType=VARCHAR}, #{checkDate,jdbcType=DATE}, 
-      #{note,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ssm.pojo.MaleHealth">
-    insert into t_male_health
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="heart != null">
-        heart,
-      </if>
-      <if test="liver != null">
-        liver,
-      </if>
-      <if test="spleen != null">
-        spleen,
-      </if>
-      <if test="lung != null">
-        lung,
-      </if>
-      <if test="kidney != null">
-        kidney,
-      </if>
-      <if test="prostate != null">
-        prostate,
-      </if>
-      <if test="checkDate != null">
-        check_date,
-      </if>
-      <if test="note != null">
-        note,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="heart != null">
-        #{heart,jdbcType=VARCHAR},
-      </if>
-      <if test="liver != null">
-        #{liver,jdbcType=VARCHAR},
-      </if>
-      <if test="spleen != null">
-        #{spleen,jdbcType=VARCHAR},
-      </if>
-      <if test="lung != null">
-        #{lung,jdbcType=VARCHAR},
-      </if>
-      <if test="kidney != null">
-        #{kidney,jdbcType=VARCHAR},
-      </if>
-      <if test="prostate != null">
-        #{prostate,jdbcType=VARCHAR},
-      </if>
-      <if test="checkDate != null">
-        #{checkDate,jdbcType=DATE},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.MaleHealth">
-    update t_male_health
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="heart != null">
-        heart = #{heart,jdbcType=VARCHAR},
-      </if>
-      <if test="liver != null">
-        liver = #{liver,jdbcType=VARCHAR},
-      </if>
-      <if test="spleen != null">
-        spleen = #{spleen,jdbcType=VARCHAR},
-      </if>
-      <if test="lung != null">
-        lung = #{lung,jdbcType=VARCHAR},
-      </if>
-      <if test="kidney != null">
-        kidney = #{kidney,jdbcType=VARCHAR},
-      </if>
-      <if test="prostate != null">
-        prostate = #{prostate,jdbcType=VARCHAR},
-      </if>
-      <if test="checkDate != null">
-        check_date = #{checkDate,jdbcType=DATE},
-      </if>
-      <if test="note != null">
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.MaleHealth">
+  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.MaleHealth" >
     update t_male_health
     set user_id = #{userId,jdbcType=INTEGER},
       heart = #{heart,jdbcType=VARCHAR},

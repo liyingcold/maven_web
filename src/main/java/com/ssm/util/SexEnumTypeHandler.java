@@ -1,5 +1,6 @@
 package com.ssm.util;
 
+import com.ssm.pojo.SexEnum;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.MappedJdbcTypes;
 import org.apache.ibatis.type.MappedTypes;

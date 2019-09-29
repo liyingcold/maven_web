@@ -1,7 +1,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xs http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
 
 
     <!--将配置文件的常量进行分离-->
@@ -63,11 +67,18 @@
         <property name="plugins">
             <array>
                 <bean class="com.github.pagehelper.PageHelper">
-                    <!--<property name="dialect" value="mysql"/>-->
-                    <property name="properties ">
-                        <!--数据库类型-->
+                    <property name="properties">
                         <value>
+                            <!--4.0.0之后的版本不需要指定数据库方言，否则会报错-->
+                            <!--数据库类型-->
                             dialect=mysql
+                            reasonable=true
+                            <!--//-->
+                            <!--helperDialect=mysql-->
+                            <!--reasonable=true-->
+                            <!--supportMethodsArguments=true-->
+                            <!--params=count=countSql-->
+                            <!--autoRuntimeDialect=true-->
                         </value>
                     </property>
                 </bean>

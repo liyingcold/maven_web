@@ -46,6 +46,7 @@
           <groupId>org.apache.tomcat</groupId>
           <artifactId>tomcat-servlet-api</artifactId>
           <version>8.0.53</version>
+          <scope>provided</scope>
       </dependency>
 
       <!--spring MVC-->
@@ -275,11 +276,19 @@
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
         </dependency>
+
+        <!--解决包冲突org.springframework.web.filter.CharacterEncodingFilter cannot be cast to javax.servlet.Filter-->
+        <!--不行-->
+        <!--<dependency>-->
+            <!--<groupId>javax.servlet</groupId>-->
+            <!--<artifactId>servlet-api</artifactId>-->
+            <!--<version>2.5</version>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
     </dependencies>
 
+
 <!--构建配置-->
-
-
     <build>
         <!--产生的构建的文件名，默认值为${artifactId}-${version}-->
         <finalName>ssm</finalName>
@@ -318,18 +327,18 @@
 
             <!--maven的核心插件之-compiler插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置，在pom.xml里面加上 增加编译插件-->
             <!--找不到的jar包。可以添加到本地，再对其进行加载-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                    <compilerArguments>
-                        <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<source>1.8</source>-->
+                    <!--<target>1.8</target>-->
+                    <!--<encoding>UTF-8</encoding>-->
+                    <!--<compilerArguments>-->
+                        <!--<extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib</extdirs>-->
+                    <!--</compilerArguments>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
 
         <!--资源路径-->
