@@ -4,7 +4,7 @@
 <configuration>
     <settings>
         <!--延迟加载全局开关-->
-        <setting name="lazyLoadingEnable" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
         <!--层级开关延迟加载-->
         <setting name="aggressiveLazyLoading" value="false"/>
     </settings>

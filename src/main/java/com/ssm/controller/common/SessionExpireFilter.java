@@ -1,5 +1,8 @@
 package com.ssm.controller.common;
 
+import com.ssm.util.CookieUtil;
+import org.apache.commons.lang3.StringUtils;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -16,7 +19,11 @@ public class SessionExpireFilter implements Filter {
         HttpServletRequest httpServletRequest= (HttpServletRequest) servletRequest;
 
 //        取得token
-//        String loginToken
+        String loginToken= CookieUtil.readLoginToken(httpServletRequest);
+//
+//        if (StringUtils.isNotEmpty(loginToken)){
+//
+//        }
     }
 
     @Override

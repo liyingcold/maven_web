@@ -10,13 +10,14 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/tool/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--自动扫描对应包的注解-->
     <context:component-scan base-package="com.ssm.controller" annotation-config="true" use-default-filters="false">
         <!--只扫描Controller注解-->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+    <context:component-scan base-package="com.ssm" annotation-config="true"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -41,22 +42,22 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--配置拦截器-->
-    <!--后台权限检查拦截器-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/manage/**"/>
-            <bean class="com.ssm.controller.common.interceptor.BackAuthorityInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
-    <!--前台权限检查拦截器-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/manage/**"/>
-            <bean class="com.ssm.controller.common.interceptor.PortalAuthorityInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--&lt;!&ndash;配置拦截器&ndash;&gt;-->
+    <!--&lt;!&ndash;后台权限检查拦截器&ndash;&gt;-->
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/manage/**"/>-->
+            <!--<bean class="com.ssm.controller.common.interceptor.BackAuthorityInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+    <!--&lt;!&ndash;前台权限检查拦截器&ndash;&gt;-->
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/manage/**"/>-->
+            <!--<bean class="com.ssm.controller.common.interceptor.PortalAuthorityInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
     <!--文件上传,multipart解析器-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -64,4 +65,7 @@
         <property name="maxInMemorySize" value="4096"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
+    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>-->
+    <!--</bean>-->
 </beans>
